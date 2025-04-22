@@ -28,6 +28,7 @@ function flynremotequerylog_activate()
     $sql = "CREATE TABLE $table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        was_cancelled tinyint(1) DEFAULT 0 NOT NULL,
         query text NOT NULL,
         url varchar(255) DEFAULT '' NOT NULL,
         PRIMARY KEY  (id)

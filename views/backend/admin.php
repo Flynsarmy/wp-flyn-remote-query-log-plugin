@@ -1,9 +1,18 @@
 <h1>Remote Query Log</h1>
 
+<style>
+    .wp-list-table tr.cancelled td {
+        background-color: #fbe7e7;
+    }
+    .wp-list-table tr.cancelled td:first-child {
+        border-left: 4px solid #e67272
+    }
+</style>
+
+<p>Cancelled requests are highlighted in red.</p>
 <table class="wp-list-table widefat fixed striped items">
     <thead>
         <tr>
-            <th scope="col" class="manage-column column-primary" width="20">ID</th>
             <th scope="col" class="manage-column column-primary" width="100">Time</th>
             <th scope="col" class="manage-column column-primary" width="600">URL</th>
             <th scope="col" class="manage-column column-primary">Query</th>
@@ -11,8 +20,7 @@
     </thead>
     <tbody>
         <?php foreach ($logs as $log): ?>
-            <tr>
-                <td><?php echo esc_html($log['id']); ?></td>
+            <tr class="<?php if (!empty($log['was_cancelled'])) echo 'cancelled'; ?>">
                 <td><?php echo esc_html($log['time']); ?></td>
                 <td><?php echo esc_html($log['url']); ?></td>
                 <td>
@@ -24,7 +32,6 @@
     </tbody>
     <tfoot>
         <tr>
-            <th scope="col" class="manage-column column-primary">ID</th>
             <th scope="col" class="manage-column column-primary">Time</th>
             <th scope="col" class="manage-column column-primary">URL</th>
             <th scope="col" class="manage-column column-primary">Query</th>

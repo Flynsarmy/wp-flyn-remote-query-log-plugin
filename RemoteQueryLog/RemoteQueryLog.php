@@ -13,7 +13,7 @@ class RemoteQueryLog
      */
     protected function init(): void
     {
-        add_filter('pre_http_request', [$this, 'preHttpRequest'], 10, 3);
+        add_filter('pre_http_request', [$this, 'preHttpRequest'], 999, 3);
     }
 
     /**
@@ -44,10 +44,12 @@ class RemoteQueryLog
             $wpdb->prefix . 'flyn_query_log',
             [
                 'time' => current_time('mysql'),
+                'was_cancelled' => $response === false ? 0 : 1,
                 'query' => json_encode($parsed_args),
                 'url' => $url,
             ],
             [
+                '%s',
                 '%s',
                 '%s',
                 '%s',
